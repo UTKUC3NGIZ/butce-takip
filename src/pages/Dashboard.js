@@ -1,52 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PieChart, BarChart } from "@mui/x-charts";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../style/dashboard.css";
 
 function Dashboard() {
-  const [transactions, setTransactions] = useState([
-    {
-      date: "2024-02-01",
-      amount: 1000,
-      description: "Maaş",
-      type: "Gelir",
-    },
-    {
-      date: "2024-02-02",
-      amount: 150,
-      description: "Market alışverişi",
-      type: "Gider",
-    },
-    {
-      date: "2024-03-03",
-      amount: 300,
-      description: "Fatura ödemesi",
-      type: "Gider",
-    },
-    {
-      date: "2024-03-04",
-      amount: 800,
-      description: "Kira ödemesi",
-      type: "Gider",
-    },
-    {
-      date: "2024-05-06",
-      amount: 800,
-      description: "Kira ödemesi",
-      type: "Gider",
-    },
-    {
-      date: "2024-05-06",
-      amount: 1800,
-      description: "Kira ödemesi",
-      type: "Gelir",
-    },
-  ]);
+  const [transactions, setTransactions] = useState([]);
+  console.log(transactions);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("Gelir");
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    fetch("http://localhost:8080/api/v1/balances", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data);
+        const transformedData = data.map((balance) => ({
+          date: balance.createDate.substring(0, 10),
+          amount: balance.amount,
+          description: balance.description,
+          type: balance.type === "income" ? "Gelir" : "Gider",
+        }));
+        setTransactions(transformedData);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   const addTransaction = () => {
     const newTransaction = {
@@ -117,7 +106,7 @@ function Dashboard() {
       <div>
         <div>
           <div>
-            <div>
+            {/* <div>
               <PieChart
                 colors={["#99bc85", "#36304a"]}
                 series={[
@@ -147,7 +136,7 @@ function Dashboard() {
                 height={400}
                 width={400}
               />
-            </div>
+            </div> */}
           </div>
         </div>
         <div>
