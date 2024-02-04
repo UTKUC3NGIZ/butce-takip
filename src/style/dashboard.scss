@@ -1,23 +1,27 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  background-color: #eee7da;
+  background: rgb(54, 48, 74);
+  background: linear-gradient(
+    349deg,
+    rgba(54, 48, 74, 0.6026785714285714) 0%,
+    rgba(153, 188, 133, 0.47102591036414565) 100%
+  );
   color: #000;
   height: 100%;
   > div {
+    margin: 3rem 3rem;
+
     &:nth-child(1) {
       display: flex;
       justify-content: space-around;
 
       > div {
         &:nth-child(1) {
-          width: 70%;
-          display: flex;
-          align-items: left;
-
-          margin: 1rem;
-          padding: 1rem;
-          max-width: 400px;
+          div {
+            display: flex;
+            gap: 2rem;
+          }
         }
         &:nth-child(2) {
           width: 30%;
@@ -25,11 +29,8 @@
           flex-direction: column;
           align-items: flex-start;
 
-          margin: 1rem;
-          padding: 1rem;
-
           h2 {
-            color: #0f0f0f;
+            color: #36304a;
             font-size: 24px;
             margin-bottom: 20px;
           }
@@ -37,25 +38,30 @@
           form {
             width: 100%;
             margin: 0 auto;
-            padding: 20px;
             border-radius: 5px;
+            div {
+              width: 100%;
+              margin-top: 0.5rem;
+            }
 
             label {
               display: block;
               font-weight: bold;
               margin-bottom: 5px;
-              color: #0f0f0f;
+              color: #36304a;
             }
 
             input[type="number"],
             input[type="text"],
             select {
+              box-sizing: border-box;
               width: 100%;
-              padding: 8px;
-              font-size: 16px;
+              max-width: 100%;
+              padding: 0.8rem;
+              font-size: 1rem;
               border: 1px solid #ced4da;
               border-radius: 4px;
-              background-color: #f2f1eb;
+              background-color: #fff;
               transition: border-color 0.15s ease-in-out,
                 box-shadow 0.15s ease-in-out;
               outline: none;
@@ -64,8 +70,9 @@
               margin-top: 1rem;
               width: 100%;
               height: 3rem;
+              font-size: 1rem;
               border: 1px solid #9e9e9e;
-              background-color: #0f0f0f;
+              background-color: #36304a;
               color: #f2f1eb;
               cursor: pointer;
             }
@@ -77,31 +84,50 @@
       > table {
         width: 100%;
         border-collapse: collapse;
+        background: #fff;
+        border-radius: 1rem;
+        overflow: hidden;
+      }
+      thead {
+        background-color: #36304a;
+        color: #fff;
+        box-sizing: border-box;
 
-        th,
-        td {
-          border: 1px solid #ddd;
-          padding: 8px;
-          text-align: left;
-          font-size: 1.3rem;
+        tr {
+          height: 60px;
+          padding: 1rem;
+          th {
+            text-align: left;
+            padding-left: 2rem;
+          }
         }
-
-        th {
-          background-color: #f2f2f2;
-          font-size: 1.5rem;
-        }
-
-        tbody tr:nth-child(even) {
-          background-color: #bbab8c;
+      }
+      tbody {
+        tr {
+          font-size: 15px;
+          color: gray;
+          line-height: 1.2;
+          font-weight: unset;
+          &:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+          &:nth-child(odd) {
+            background-color: #fff;
+          }
+          td {
+            padding-left: 2rem;
+          }
         }
       }
       .buttons {
         display: flex;
+        margin: 1rem 0;
         button {
           width: 100%;
           height: 3rem;
           border: 1px solid #9e9e9e;
-          background-color: #0f0f0f;
+          background-color: #36304a;
+          border-radius: 0.3rem;
           color: #f2f1eb;
           cursor: pointer;
           margin: 0 0.5rem;
@@ -110,7 +136,7 @@
       h2 {
         margin-top: 20px;
         font-size: 24px;
-        color: #0f0f0f;
+        color: #36304a;
       }
     }
   }

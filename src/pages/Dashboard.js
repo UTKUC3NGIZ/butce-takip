@@ -116,9 +116,10 @@ function Dashboard() {
     <div className="dashboard">
       <div>
         <div>
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
+          <div>
             <div>
               <PieChart
+                colors={["#99bc85", "#36304a"]}
                 series={[
                   {
                     data: dataForPieChart,
@@ -130,20 +131,21 @@ function Dashboard() {
                     },
                   },
                 ]}
-                height={300}
-                width={300}
+                height={400}
+                width={400}
               />
             </div>
             <div>
               <BarChart
+                colors={["#99bc85", "#36304a"]}
                 dataset={monthlyDataForBarChart}
                 xAxis={[{ scaleType: "band", dataKey: "monthYear" }]}
                 series={[
                   { dataKey: "income", label: "Gelir" },
                   { dataKey: "expense", label: "Gider" },
                 ]}
-                height={300}
-                width={300}
+                height={400}
+                width={400}
               />
             </div>
           </div>
@@ -208,6 +210,9 @@ function Dashboard() {
                 <td>{transaction.description}</td>
                 <td className="buttons">
                   <button onClick={() => deleteTransaction(index)}>Sil</button>
+                  <button onClick={() => deleteTransaction(index)}>
+                    Düzenle
+                  </button>
                 </td>
               </tr>
             ))}
