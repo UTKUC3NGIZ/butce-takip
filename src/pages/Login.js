@@ -23,17 +23,15 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/login",
+        "http://localhost:8080/api/v1/auth/authenticate",
         formData
       );
 
-      if (response.data.includes("Login successful")) {
-        navigate(`/`);
-        toast.success(response.data);
-      }
-    } catch (error) {
-      toast.error(error);
-    }
+      localStorage.setItem("accessToken", response.data.access_token);
+      localStorage.setItem("refreshToken", response.data.refresh_token);
+
+      navigate(`/`);
+    } catch (error) {}
   };
 
   return (

@@ -7,7 +7,8 @@ import toast from "react-hot-toast";
 
 function Register() {
   const [formData, setFormData] = useState({
-    name: "",
+    firstname: "",
+    lastname: "",
     email: "",
     password: "",
   });
@@ -22,7 +23,7 @@ function Register() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/register",
+        "http://localhost:8080/api/v1/auth/register",
         formData
       );
       if (response.data.includes("successful")) {
@@ -41,9 +42,16 @@ function Register() {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            name="name"
-            placeholder="İsim"
-            value={formData.name}
+            name="firstname"
+            placeholder="Ad"
+            value={formData.firstname}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            name="lastname"
+            placeholder="Soyad"
+            value={formData.lastname}
             onChange={handleInputChange}
           />
           <input
