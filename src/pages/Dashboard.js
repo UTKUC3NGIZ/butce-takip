@@ -68,14 +68,14 @@ function Dashboard() {
       <div className="add-transaction">
         <h2>Add Transaction</h2>
         <div>
-          <label>Date:</label>
+          <label>Tarih:</label>
           <DatePicker
             selected={selectedDate}
             onChange={(date) => setSelectedDate(date)}
           />
         </div>
         <div>
-          <label>Amount:</label>
+          <label>Miktar:</label>
           <input
             type="number"
             value={amount}
