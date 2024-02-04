@@ -1,17 +1,52 @@
 import React, { useState } from "react";
-import { Chart, ArcElement } from "chart.js";
+import { PieChart, BarChart } from "@mui/x-charts";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../style/dashboard.css";
-import { Pie } from "react-chartjs-2";
 
 function Dashboard() {
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState([
+    {
+      date: "2024-02-01",
+      amount: 1000,
+      description: "Maaş",
+      type: "Gelir",
+    },
+    {
+      date: "2024-02-02",
+      amount: 150,
+      description: "Market alışverişi",
+      type: "Gider",
+    },
+    {
+      date: "2024-03-03",
+      amount: 300,
+      description: "Fatura ödemesi",
+      type: "Gider",
+    },
+    {
+      date: "2024-03-04",
+      amount: 800,
+      description: "Kira ödemesi",
+      type: "Gider",
+    },
+    {
+      date: "2024-05-06",
+      amount: 800,
+      description: "Kira ödemesi",
+      type: "Gider",
+    },
+    {
+      date: "2024-05-06",
+      amount: 1800,
+      description: "Kira ödemesi",
+      type: "Gelir",
+    },
+  ]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState("income");
-  Chart.register(ArcElement);
+  const [type, setType] = useState("Gelir");
 
   const addTransaction = () => {
     const newTransaction = {
@@ -26,81 +61,133 @@ function Dashboard() {
     setDescription("");
   };
 
-  const editTransaction = (index) => {};
-
   const deleteTransaction = (index) => {
     const updatedTransactions = [...transactions];
     updatedTransactions.splice(index, 1);
     setTransactions(updatedTransactions);
   };
 
-  const calculateNetAmount = () => {
-    const totalIncome = transactions
-      .filter((transaction) => transaction.type === "income")
-      .reduce((acc, transaction) => acc + transaction.amount, 0);
+  const dataForPieChart = [
+    {
+      id: 0,
+      value: transactions
+        .filter((transaction) => transaction.type === "Gelir")
+        .reduce((acc, transaction) => acc + transaction.amount, 0),
+      label: "Gelir",
+    },
+    {
+      id: 1,
+      value: transactions
+        .filter((transaction) => transaction.type === "Gider")
+        .reduce((acc, transaction) => acc + transaction.amount, 0),
+      label: "Gider",
+    },
+  ];
 
-    const totalExpense = transactions
-      .filter((transaction) => transaction.type === "expense")
-      .reduce((acc, transaction) => acc + transaction.amount, 0);
+  const groupedTransactions = transactions.reduce((acc, transaction) => {
+    const date = new Date(transaction.date);
+    const monthYear = `${date.getMonth() + 1}/${date.getFullYear()}`;
+    if (!acc[monthYear]) {
+      acc[monthYear] = [];
+    }
+    acc[monthYear].push(transaction);
+    return acc;
+  }, {});
 
-    return totalIncome - totalExpense;
-  };
+  const monthlyDataForBarChart = Object.entries(groupedTransactions).map(
+    ([monthYear, transactions]) => {
+      const totalIncome = transactions
+        .filter((transaction) => transaction.type === "Gelir")
+        .reduce((acc, transaction) => acc + transaction.amount, 0);
 
-  const dataForPieChart = {
-    labels: ["IncomeIncome", "Expense"],
-    datasets: [
-      {
-        data: [
-          transactions
-            .filter((transaction) => transaction.type === "income")
-            .reduce((acc, transaction) => acc + transaction.amount, 0),
-          transactions
-            .filter((transaction) => transaction.type === "expense")
-            .reduce((acc, transaction) => acc + transaction.amount, 0),
-        ],
-        backgroundColor: ["green", "red"],
-      },
-    ],
-  };
+      const totalExpense = transactions
+        .filter((transaction) => transaction.type === "Gider")
+        .reduce((acc, transaction) => acc + transaction.amount, 0);
+
+      return {
+        monthYear,
+        income: totalIncome,
+        expense: totalExpense,
+      };
+    }
+  );
 
   return (
-    <div>
-      <div className="add-transaction">
-        <h2>Add Transaction</h2>
+    <div className="dashboard">
+      <div>
         <div>
-          <label>Tarih:</label>
-          <DatePicker
-            selected={selectedDate}
-            onChange={(date) => setSelectedDate(date)}
-          />
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <div>
+              <PieChart
+                series={[
+                  {
+                    data: dataForPieChart,
+                    highlightScope: { faded: "global", highlighted: "item" },
+                    faded: {
+                      innerRadius: 30,
+                      additionalRadius: -30,
+                      color: "gray",
+                    },
+                  },
+                ]}
+                height={300}
+                width={300}
+              />
+            </div>
+            <div>
+              <BarChart
+                dataset={monthlyDataForBarChart}
+                xAxis={[{ scaleType: "band", dataKey: "monthYear" }]}
+                series={[
+                  { dataKey: "income", label: "Gelir" },
+                  { dataKey: "expense", label: "Gider" },
+                ]}
+                height={300}
+                width={300}
+              />
+            </div>
+          </div>
         </div>
         <div>
-          <label>Miktar:</label>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
+          <h2>Islem Olustur</h2>
+
+          <form action="">
+            <div>
+              <label>Tarih:</label>
+              <DatePicker
+                selected={selectedDate}
+                onChange={(date) => setSelectedDate(date)}
+              />
+            </div>
+            <div>
+              <label>Miktar:</label>
+              <input
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </div>
+            <div>
+              <label>Tür:</label>
+              <select value={type} onChange={(e) => setType(e.target.value)}>
+                <option value="Gelir">Gelir</option>
+                <option value="Gider">Gider</option>
+              </select>
+            </div>
+            <div>
+              <label>Açıklama:</label>
+              <input
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </div>
+            <button onClick={addTransaction}>Ekle</button>
+          </form>
         </div>
-        <div>
-          <label>Tür:</label>
-          <select value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="income">Gelir</option>
-            <option value="expense">Gider</option>
-          </select>
-        </div>
-        <div>
-          <label>Açıklama:</label>
-          <input
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        <button onClick={addTransaction}>Ekle</button>
       </div>
 
-      <div className="transaction-list">
+      <div>
         <h2>Hareketlerim</h2>
         <table>
           <thead>
@@ -119,24 +206,13 @@ function Dashboard() {
                 <td>{transaction.type}</td>
                 <td>{transaction.amount}</td>
                 <td>{transaction.description}</td>
-                <td>
-                  <button onClick={() => editTransaction(index)}>
-                    Düzenle
-                  </button>
+                <td className="buttons">
                   <button onClick={() => deleteTransaction(index)}>Sil</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-
-      <div className="net-amount">
-        <h2>Net Miktar: {calculateNetAmount()}</h2>
-      </div>
-
-      <div className="pie-chart">
-        <Pie data={dataForPieChart} />
       </div>
     </div>
   );
