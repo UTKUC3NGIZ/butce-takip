@@ -7,5 +7,6 @@ import com.example.demo.model.Person;
 
 @RepositoryRestResource
 public interface PersonRepo extends JpaRepository<Person, Long> {
+    Person findByEmail(String email);
 
 }
