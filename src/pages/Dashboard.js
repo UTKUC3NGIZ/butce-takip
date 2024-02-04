@@ -6,7 +6,7 @@ import "../style/dashboard.css";
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
-  console.log(transactions);
+  console.log(transactions, "transactions");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
@@ -23,7 +23,6 @@ function Dashboard() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
         const transformedData = data.map((balance) => ({
           date: balance.createDate.substring(0, 10),
           amount: balance.amount,
@@ -42,12 +41,34 @@ function Dashboard() {
       date: selectedDate.toLocaleDateString(),
       amount: parseFloat(amount),
       description,
-      type,
+      type: type === "Gelir" ? "income" : "expense",
     };
 
     setTransactions([...transactions, newTransaction]);
     setAmount("");
     setDescription("");
+
+    const accessToken = localStorage.getItem("accessToken");
+
+    fetch("http://localhost:8080/api/v1/balances", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({
+        amount: newTransaction.amount,
+        type: newTransaction.type,
+        description: newTransaction.description,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Transaction added successfully:", data);
+      })
+      .catch((error) => {
+        console.error("Error adding transaction:", error);
+      });
   };
 
   const deleteTransaction = (index) => {
@@ -58,14 +79,14 @@ function Dashboard() {
 
   const dataForPieChart = [
     {
-      id: 0,
+      id: "0", // Convert id to string
       value: transactions
         .filter((transaction) => transaction.type === "Gelir")
         .reduce((acc, transaction) => acc + transaction.amount, 0),
       label: "Gelir",
     },
     {
-      id: 1,
+      id: "1", // Convert id to string
       value: transactions
         .filter((transaction) => transaction.type === "Gider")
         .reduce((acc, transaction) => acc + transaction.amount, 0),
@@ -100,18 +121,24 @@ function Dashboard() {
       };
     }
   );
-
+  console.log("dataForPieChart", dataForPieChart);
+  console.log("monthlyDataForBarChart", monthlyDataForBarChart);
   return (
     <div className="dashboard">
       <div>
         <div>
           <div>
-            {/* <div>
+            <div>
               <PieChart
                 colors={["#99bc85", "#36304a"]}
                 series={[
                   {
-                    data: dataForPieChart,
+                    data: dataForPieChart.length
+                      ? dataForPieChart
+                      : [
+                          { value: 0, label: "Gelir" },
+                          { value: 0, label: "Gider" },
+                        ],
                     highlightScope: { faded: "global", highlighted: "item" },
                     faded: {
                       innerRadius: 30,
@@ -127,7 +154,11 @@ function Dashboard() {
             <div>
               <BarChart
                 colors={["#99bc85", "#36304a"]}
-                dataset={monthlyDataForBarChart}
+                dataset={
+                  monthlyDataForBarChart.length
+                    ? monthlyDataForBarChart
+                    : [{ monthYear: "", income: 0, expense: 0 }]
+                }
                 xAxis={[{ scaleType: "band", dataKey: "monthYear" }]}
                 series={[
                   { dataKey: "income", label: "Gelir" },
@@ -136,7 +167,7 @@ function Dashboard() {
                 height={400}
                 width={400}
               />
-            </div> */}
+            </div>
           </div>
         </div>
         <div>
