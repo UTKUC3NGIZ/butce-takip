@@ -37,6 +37,7 @@ public class SecurityConfiguration {
 
         private static final String[] WHITE_LIST_URL = { "/api/v1/auth/**",
                         "/v2/api-docs",
+                        "/api/v1/balances/**",
                         "/api/v1/balances",
                         "/v3/api-docs",
                         "/v3/api-docs/**",
