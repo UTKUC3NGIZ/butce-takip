@@ -23,7 +23,17 @@ public class BalanceService {
                 .build();
         repository.save(balance);
     }
-
+    public void updateBalance(Integer id, BalanceRequest request) {
+        Balance existingBalance = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Balance not found with ID " + id));
+    
+        existingBalance.setAmount(request.getAmount());
+        existingBalance.setType(request.getType());
+        existingBalance.setDescription(request.getDescription());
+    
+        repository.save(existingBalance);
+    }
+    
     public void deleteById(Integer id) {
         repository.deleteById(id);
     }

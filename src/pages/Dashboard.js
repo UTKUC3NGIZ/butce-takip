@@ -7,11 +7,21 @@ import axios from "axios";
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
-  console.log(transactions, "transactions");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("Gelir");
+  const [editingTransaction, setEditingTransaction] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = (transaction) => {
+    setEditingTransaction(transaction);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -90,6 +100,25 @@ function Dashboard() {
       });
   };
 
+  const updateTransaction = (updatedTransaction) => {
+    axios
+      .put(
+        `http://localhost:8080/api/v1/balances/${updatedTransaction.id}`,
+        updatedTransaction
+      )
+      .then((response) => {
+        console.log(
+          `Transaction with ID ${updatedTransaction.id} has been updated successfully.`
+        );
+      })
+      .catch((error) => {
+        console.error(
+          `Error updating transaction with ID ${updatedTransaction.id}:`,
+          error
+        );
+      });
+  };
+
   const dataForPieChart = [
     {
       id: "0",
@@ -143,7 +172,65 @@ function Dashboard() {
     }
     return acc;
   }, 0);
-  console.log("netAmount", netAmount);
+
+  const EditTransactionModal = ({ isOpen, transaction, onSave, onClose }) => {
+    const [editedAmount, setEditedAmount] = useState(
+      transaction ? transaction.amount : ""
+    );
+    const [editedType, setEditedType] = useState(
+      transaction ? transaction.type : "Gelir"
+    );
+    const [editedDescription, setEditedDescription] = useState(
+      transaction ? transaction.description : ""
+    );
+
+    if (!isOpen || !transaction) {
+      return null;
+    }
+
+    const handleSave = () => {
+      onSave({
+        ...transaction,
+        amount: editedAmount,
+        type: editedType,
+        description: editedDescription,
+      });
+      onClose();
+    };
+
+    return (
+      <div className={`modal ${isOpen ? "open" : ""}`}>
+        <div className="modal-content">
+          <h2>Düzenle</h2>
+          <label>Miktar:</label>
+          <input
+            type="number"
+            value={editedAmount}
+            onChange={(e) => setEditedAmount(e.target.value)}
+          />
+          <label>Tür:</label>
+          <select
+            value={editedType}
+            onChange={(e) => setEditedType(e.target.value)}
+          >
+            <option value="Gelir">Gelir</option>
+            <option value="Gider">Gider</option>
+          </select>
+          <label>Açıklama:</label>
+          <input
+            type="text"
+            value={editedDescription}
+            onChange={(e) => setEditedDescription(e.target.value)}
+          />
+          <div>
+            <button onClick={onClose}>İptal</button>
+            <button onClick={handleSave}>Kaydet</button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="dashboard">
       <div>
@@ -259,7 +346,7 @@ function Dashboard() {
                     Sil
                   </button>
 
-                  <button onClick={() => deleteTransaction(index)}>
+                  <button onClick={() => openModal(transaction)}>
                     Düzenle
                   </button>
                 </td>
@@ -268,6 +355,12 @@ function Dashboard() {
           </tbody>
         </table>
       </div>
+      <EditTransactionModal
+        isOpen={showModal}
+        transaction={editingTransaction}
+        onSave={updateTransaction}
+        onClose={closeModal}
+      />
     </div>
   );
 }
