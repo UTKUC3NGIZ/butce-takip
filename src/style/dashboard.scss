@@ -150,10 +150,15 @@
           margin: 0 0.5rem;
         }
       }
-      h2 {
-        margin-top: 20px;
-        font-size: 24px;
-        color: #36304a;
+      div {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        h2 {
+          margin-top: 20px;
+          font-size: 24px;
+          color: #36304a;
+        }
       }
     }
   }

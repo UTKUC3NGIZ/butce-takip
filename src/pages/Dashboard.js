@@ -80,14 +80,14 @@ function Dashboard() {
 
   const dataForPieChart = [
     {
-      id: "0", // Convert id to string
+      id: "0",
       value: transactions
         .filter((transaction) => transaction.type === "Gelir")
         .reduce((acc, transaction) => acc + transaction.amount, 0),
       label: "Gelir",
     },
     {
-      id: "1", // Convert id to string
+      id: "1",
       value: transactions
         .filter((transaction) => transaction.type === "Gider")
         .reduce((acc, transaction) => acc + transaction.amount, 0),
@@ -122,8 +122,16 @@ function Dashboard() {
       };
     }
   );
-  console.log("dataForPieChart", dataForPieChart);
-  console.log("monthlyDataForBarChart", monthlyDataForBarChart);
+
+  const netAmount = dataForPieChart.reduce((acc, current) => {
+    if (current.label === "Gelir") {
+      acc += current.value;
+    } else {
+      acc -= current.value;
+    }
+    return acc;
+  }, 0);
+  console.log("netAmount", netAmount);
   return (
     <div className="dashboard">
       <div>
@@ -211,7 +219,10 @@ function Dashboard() {
       </div>
 
       <div>
-        <h2>Hareketlerim</h2>
+        <div>
+          <h2>Hareketlerim</h2>
+          <h3>Net Miktar: {netAmount} TL </h3>
+        </div>
         <table>
           <thead>
             <tr>

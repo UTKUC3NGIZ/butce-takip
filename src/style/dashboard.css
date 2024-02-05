@@ -140,7 +140,12 @@
   cursor: pointer;
   margin: 0 0.5rem;
 }
-.dashboard > div:nth-child(2) h2 {
+.dashboard > div:nth-child(2) div {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.dashboard > div:nth-child(2) div h2 {
   margin-top: 20px;
   font-size: 24px;
   color: #36304a;
