@@ -174,14 +174,14 @@ function Dashboard() {
           <h2>Islem Olustur</h2>
 
           <form action="">
-            <div>
+            <div className="customInput">
               <label>Tarih:</label>
               <DatePicker
                 selected={selectedDate}
                 onChange={(date) => setSelectedDate(date)}
               />
             </div>
-            <div>
+            <div className="customInput">
               <label>Miktar:</label>
               <input
                 type="number"
@@ -189,14 +189,14 @@ function Dashboard() {
                 onChange={(e) => setAmount(e.target.value)}
               />
             </div>
-            <div>
+            <div className="customInput">
               <label>Tür:</label>
               <select value={type} onChange={(e) => setType(e.target.value)}>
                 <option value="Gelir">Gelir</option>
                 <option value="Gider">Gider</option>
               </select>
             </div>
-            <div>
+            <div className="customInput">
               <label>Açıklama:</label>
               <input
                 type="text"

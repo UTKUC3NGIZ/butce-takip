@@ -55,8 +55,6 @@
             margin: 0 auto;
             border-radius: 5px;
             div {
-              width: 100%;
-              margin-top: 0.5rem;
               @media (max-width: 1200px) {
                 margin-top: 0rem;
               }
@@ -159,4 +157,14 @@
       }
     }
   }
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.customInput {
+  width: 100%;
+  margin-top: 0.5rem;
 }

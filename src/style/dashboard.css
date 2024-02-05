@@ -55,10 +55,6 @@
   margin: 0 auto;
   border-radius: 5px;
 }
-.dashboard > div:nth-child(1) > div:nth-child(2) form div {
-  width: 100%;
-  margin-top: 0.5rem;
-}
 @media (max-width: 1200px) {
   .dashboard > div:nth-child(1) > div:nth-child(2) form div {
     margin-top: 0rem;
@@ -148,4 +144,14 @@
   margin-top: 20px;
   font-size: 24px;
   color: #36304a;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.customInput {
+  width: 100%;
+  margin-top: 0.5rem;
 }/*# sourceMappingURL=dashboard.css.map */
