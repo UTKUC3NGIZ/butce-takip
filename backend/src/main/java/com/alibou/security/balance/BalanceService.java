@@ -24,6 +24,10 @@ public class BalanceService {
         repository.save(balance);
     }
 
+    public void deleteById(Integer id) {
+        repository.deleteById(id);
+    }
+
     public List<Balance> findAll() {
         return repository.findAll();
     }

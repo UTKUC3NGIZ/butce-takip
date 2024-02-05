@@ -3,6 +3,7 @@ import { PieChart, BarChart } from "@mui/x-charts";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "../style/dashboard.css";
+import axios from "axios";
 
 function Dashboard() {
   const [transactions, setTransactions] = useState([]);
@@ -24,10 +25,13 @@ function Dashboard() {
       .then((response) => response.json())
       .then((data) => {
         const transformedData = data.map((balance) => ({
+          id: balance.id,
+          created_by: balance.createdBy,
           date: balance.createDate.substring(0, 10),
           amount: balance.amount,
           description: balance.description,
           type: balance.type === "income" ? "Gelir" : "Gider",
+          add_date: balance.addDate,
         }));
         setTransactions(transformedData);
       })
@@ -72,10 +76,18 @@ function Dashboard() {
       });
   };
 
-  const deleteTransaction = (index) => {
-    const updatedTransactions = [...transactions];
-    updatedTransactions.splice(index, 1);
-    setTransactions(updatedTransactions);
+  const deleteTransaction = (index, id) => {
+    axios
+      .delete(`http://localhost:8080/api/v1/balances/${id}`)
+      .then((response) => {
+        console.log(`Transaction with ID ${id} has been deleted successfully.`);
+        const updatedTransactions = [...transactions];
+        updatedTransactions.splice(index, 1);
+        setTransactions(updatedTransactions);
+      })
+      .catch((error) => {
+        console.error(`Error deleting transaction with ID ${id}:`, error);
+      });
   };
 
   const dataForPieChart = [
@@ -241,7 +253,12 @@ function Dashboard() {
                 <td>{transaction.amount}</td>
                 <td>{transaction.description}</td>
                 <td className="buttons">
-                  <button onClick={() => deleteTransaction(index)}>Sil</button>
+                  <button
+                    onClick={() => deleteTransaction(index, transaction.id)}
+                  >
+                    Sil
+                  </button>
+
                   <button onClick={() => deleteTransaction(index)}>
                     Düzenle
                   </button>
