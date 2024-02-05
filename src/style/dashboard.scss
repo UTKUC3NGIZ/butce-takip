@@ -176,15 +176,15 @@
 }
 
 .modal {
-  position: absolute;
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
+  min-height: 100vh;
   height: 100%;
   z-index: 1000;
   top: 0;
   left: 0;
   margin: 0 !important;
-
   .modal-content {
     position: fixed;
     top: 50%;

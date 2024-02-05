@@ -17,10 +17,12 @@ function Dashboard() {
   const openModal = (transaction) => {
     setEditingTransaction(transaction);
     setShowModal(true);
+    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setShowModal(false);
+    document.body.style.overflow = "auto";
   };
 
   useEffect(() => {
