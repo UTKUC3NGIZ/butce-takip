@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+<h1 align="center">Bütçe Takip Uygulaması</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+###
 
-## Available Scripts
+<div align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="40" alt="react logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" height="40" alt="spring logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="40" alt="postgresql logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" height="40" alt="sass logo"  />
+</div>
 
-In the project directory, you can run:
+###
 
-### `npm start`
+<div align="center">
+  <img width="600" src="https://github.com/UTKUC3NGIZ/butce-takip/blob/master/image/React-App1.png"  />
+</div>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+###
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<div align="center">
+  <img width="600" src="https://github.com/UTKUC3NGIZ/butce-takip/blob/master/image/React-App3.png"  />
+</div>
 
-### `npm test`
+###
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<div align="center">
+  <img width="600" src="https://github.com/UTKUC3NGIZ/butce-takip/blob/master/image/React-App4.png"  />
+</div>
 
-### `npm run build`
+###
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<div align="center">
+  <img width="600" src="https://github.com/UTKUC3NGIZ/butce-takip/blob/master/image/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202024-02-05%20045003.png"  />
+</div>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+###
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<div align="center">
+  <img width="600" src="https://github.com/UTKUC3NGIZ/butce-takip/blob/master/image/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202024-02-05%20045043.png"  />
+</div>
 
-### `npm run eject`
+###
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<div align="center">
+  <img width="600" src="https://github.com/UTKUC3NGIZ/butce-takip/blob/master/image/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202024-02-05%20045147.png"  />
+</div>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+###
+<div align="center">
+  <img width="600" src="https://github.com/UTKUC3NGIZ/butce-takip/blob/master/image/Ba%C5%9Fl%C4%B1ks%C4%B1z-Diyagram-draw-io.png?raw=true"  />
+</div>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+###
 
-## Learn More
+<div align="center">
+  <img width="600" src="https://github.com/UTKUC3NGIZ/butce-takip/blob/master/image/React-App.png"  />
+</div>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+###
