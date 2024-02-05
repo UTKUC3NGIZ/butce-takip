@@ -4,6 +4,7 @@
   background: rgb(54, 48, 74);
   background: linear-gradient(349deg, rgba(54, 48, 74, 0.6026785714) 0%, rgba(153, 188, 133, 0.4710259104) 100%);
   color: #000;
+  min-height: 100vh;
   height: 100%;
 }
 .dashboard > div {
