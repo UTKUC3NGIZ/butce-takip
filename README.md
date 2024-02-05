@@ -33,6 +33,12 @@
 ###
 
 <div align="center">
+  <img width="600" src="https://github.com/UTKUC3NGIZ/butce-takip/blob/master/image/React-App5.png"  />
+</div>
+
+###
+
+<div align="center">
   <img width="600" src="https://github.com/UTKUC3NGIZ/butce-takip/blob/master/image/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202024-02-05%20045003.png"  />
 </div>
 
