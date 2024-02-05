@@ -42,8 +42,8 @@ function Dashboard() {
       amount: parseFloat(amount),
       description,
       type: type === "Gelir" ? "income" : "expense",
+      add_date: selectedDate.getTime(),
     };
-
     setTransactions([...transactions, newTransaction]);
     setAmount("");
     setDescription("");
@@ -60,6 +60,7 @@ function Dashboard() {
         amount: newTransaction.amount,
         type: newTransaction.type,
         description: newTransaction.description,
+        add_date: newTransaction.add_date,
       }),
     })
       .then((response) => response.json())
